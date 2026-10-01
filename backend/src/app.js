@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { env } from "./config/env.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.routes.js";
+import streakRoutes from "./routes/streak.routes.js";
 
 const app = express();
 
@@ -30,8 +31,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-
-// Daily streak routes will be mounted here in a later step
+app.use("/api/daily-streak", streakRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

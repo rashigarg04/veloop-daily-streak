@@ -9,7 +9,8 @@
     "seed": "node seed/seed.js",
     "check:models": "node seed/checkModels.js",
     "check:streak": "node seed/checkStreak.js",
-    "check:claim": "node seed/checkClaim.js"
+    "check:claim": "node seed/checkClaim.js",
+    "test:api": "node seed/apiTest.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
