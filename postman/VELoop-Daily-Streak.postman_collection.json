@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "VELoop Daily Streak",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Postman Test\",\n  \"email\": \"postman@test.com\",\n  \"password\": \"Test1234\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const data = pm.response.json();",
+              "if (data.token) pm.collectionVariables.set('token', data.token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"postman@test.com\",\n  \"password\": \"Test1234\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const data = pm.response.json();",
+              "if (data.token) pm.collectionVariables.set('token', data.token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Me",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/auth/me"
+      }
+    },
+    {
+      "name": "Get Daily Streak",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/daily-streak"
+      }
+    },
+    {
+      "name": "Get Status",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/daily-streak/status"
+      }
+    },
+    {
+      "name": "Claim Day 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/daily-streak/claim",
+        "body": { "mode": "raw", "raw": "{\n  \"day\": 1\n}" }
+      }
+    },
+    {
+      "name": "Get Updated Streak",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/daily-streak"
+      }
+    },
+    {
+      "name": "Claim Day 2 (should fail - still locked)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/daily-streak/claim",
+        "body": { "mode": "raw", "raw": "{\n  \"day\": 2\n}" }
+      }
+    },
+    {
+      "name": "Get History",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/daily-streak/history?page=1&limit=20"
+      }
+    },
+    {
+      "name": "NEGATIVE - No Token",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/daily-streak"
+      }
+    },
+    {
+      "name": "NEGATIVE - Fake Day Jump",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/daily-streak/claim",
+        "body": { "mode": "raw", "raw": "{\n  \"day\": 7\n}" }
+      }
+    },
+    {
+      "name": "NEGATIVE - Fake Reward Amount",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/daily-streak/claim",
+        "body": { "mode": "raw", "raw": "{\n  \"day\": 2,\n  \"reward\": 999999,\n  \"currency\": \"VES\"\n}" }
+      }
+    },
+    {
+      "name": "NEGATIVE - Duplicate Claim",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/daily-streak/claim",
+        "body": { "mode": "raw", "raw": "{\n  \"day\": 1\n}" }
+      }
+    }
+  ]
+}

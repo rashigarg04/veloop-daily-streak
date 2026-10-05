@@ -600,3 +600,183 @@
   border: 1px solid rgba(240, 180, 41, 0.4);
   color: var(--gold-light);
 }
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   Mobile-first overrides layered on top of the desktop defaults above.
+   ============================================================ */
+
+/* ---------- Tablets (max 1023px) ---------- */
+@media (max-width: 1023px) {
+  .cardsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .skeletonCardsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* ---------- Large phones / small tablets (max 767px) ---------- */
+@media (max-width: 767px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .skeletonCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .statsRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .skeletonStatsRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .statCard {
+    padding: 0.7rem 0.6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .statLabel {
+    font-size: 0.68rem;
+  }
+
+  .statValue {
+    font-size: 1rem;
+  }
+
+  .hero {
+    padding: 1.1rem;
+    gap: 0.9rem;
+  }
+
+  .heroIcon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 12px;
+  }
+
+  .heroTextTitle {
+    font-size: 0.95rem;
+  }
+
+  .heroTextHighlight {
+    font-size: 1.3rem;
+  }
+
+  .heroSubtext {
+    font-size: 0.8rem;
+  }
+
+  .ultimate {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.1rem;
+  }
+
+  .ultimateRight {
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .ultimateCrown {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+  }
+
+  .ultimateAmount {
+    font-size: 1.5rem;
+  }
+
+  .headerTitle {
+    font-size: 1.05rem;
+  }
+
+  .card {
+    padding: 0.7rem;
+  }
+
+  .cardIcon {
+    font-size: 1.5rem;
+    margin: 0.3rem 0;
+  }
+
+  .cardAmount {
+    font-size: 1rem;
+  }
+
+  .cardAction {
+    font-size: 0.75rem;
+    padding: 0.42rem 0;
+  }
+}
+
+/* ---------- Small phones (max 390px) ---------- */
+@media (max-width: 390px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .cardsGrid {
+    gap: 0.5rem;
+  }
+
+  .card {
+    padding: 0.6rem;
+    border-radius: 12px;
+  }
+
+  .gemBalance {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .headerTitle {
+    font-size: 0.95rem;
+  }
+
+  .ultimateAmount {
+    font-size: 1.3rem;
+  }
+}
+
+/* ---------- Extra-wide desktop (1440px+) — a touch more breathing room ---------- */
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .cardsGrid {
+    gap: 1rem;
+  }
+}
+
+/* ---------- Horizontal overflow safety net ---------- */
+.page {
+  overflow-x: hidden;
+}
+/* ---------- Safe areas for notched phones ---------- */
+.page {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+}
+
+.loaderScreen {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
